@@ -1,0 +1,32 @@
+# VisualVerse Dependencies
+
+# Web Framework
+fastapi>=0.104.0
+uvicorn>=0.24.0
+streamlit>=1.28.0
+
+# NLP Processing
+spacy>=3.7.0
+nltk>=3.8.1
+sentence-transformers>=2.2.2
+
+# Keyphrase Extraction
+keybert>=0.8.3
+yake>=0.4.8
+
+# Graph Visualization
+networkx>=3.2
+pyvis>=0.3.2
+graphviz>=0.20.1
+
+# Image Processing
+Pillow>=10.0.0
+requests>=2.31.0
+
+# Utilities
+python-dotenv>=1.0.0
+pydantic>=2.5.0
+numpy>=1.24.0
+
+# Testing
+pytest>=7.4.0
