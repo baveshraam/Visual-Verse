@@ -6,6 +6,9 @@ The key insight: use the actual story sentence as the base, not abstract extract
 from dataclasses import dataclass
 from typing import List, Optional, Dict
 import re
+import logging
+
+logger = logging.getLogger(__name__)
 
 try:
     import spacy
@@ -118,8 +121,8 @@ class PromptBuilder:
         if SPACY_AVAILABLE:
             try:
                 self.nlp = spacy.load("en_core_web_sm")
-            except:
-                pass
+            except Exception as e:
+                logger.debug(f"Could not load spacy model: {e}")
     
     def set_comic_style(self, style: str):
         """Set the art style."""

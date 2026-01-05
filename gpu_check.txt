@@ -1,0 +1,15 @@
+﻿==================================================
+GPU DIAGNOSTIC CHECK
+==================================================
+PyTorch version: 2.9.1+cpu
+CUDA available: False
+CUDA version: None
+
+CUDA NOT AVAILABLE!
+Possible reasons:
+1. PyTorch was installed WITHOUT CUDA support
+2. NVIDIA drivers not installed/outdated
+3. CUDA toolkit not installed
+
+To fix: Install PyTorch with CUDA:
+pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121

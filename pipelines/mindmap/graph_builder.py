@@ -271,6 +271,33 @@ class GraphBuilder:
             "edges": [e.to_dict() for e in self.edges],
             "stats": {"nodes": len(self.nodes), "edges": len(self.edges)}
         }
+    
+    def get_hierarchy(self) -> Dict[str, Any]:
+        """
+        Get hierarchical structure of the graph.
+        
+        Returns:
+            Dictionary with hierarchy levels
+        """
+        central_id = self._normalize_id(self.central_topic) if self.central_topic else None
+        
+        hierarchy = {
+            "central": [],
+            "primary": [],
+            "secondary": [],
+            "tertiary": []
+        }
+        
+        for node in self.nodes.values():
+            level = node.node_type.value
+            if level in hierarchy:
+                hierarchy[level].append({
+                    "id": node.id,
+                    "label": node.label,
+                    "score": node.score
+                })
+        
+        return hierarchy
 
 
 # Test

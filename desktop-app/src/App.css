@@ -1,0 +1,172 @@
+.app {
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+}
+
+/* App Container */
+.app-container {
+    display: flex;
+    height: 100vh;
+}
+
+/* Title Bar */
+.title-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 40px;
+    background: rgba(10, 10, 15, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--glass-border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 var(--space-md);
+    z-index: var(--z-overlay);
+    -webkit-app-region: drag;
+}
+
+.title-bar-title {
+    font-family: var(--font-display);
+    font-size: 12px;
+    color: var(--text-muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.title-bar-controls {
+    display: flex;
+    gap: 8px;
+    -webkit-app-region: no-drag;
+}
+
+.title-bar-btn {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.title-bar-btn:hover {
+    transform: scale(1.15);
+}
+
+.title-bar-btn.minimize {
+    background: #ffbd2e;
+}
+
+.title-bar-btn.minimize:hover {
+    box-shadow: 0 0 10px #ffbd2e;
+}
+
+.title-bar-btn.maximize {
+    background: #28c840;
+}
+
+.title-bar-btn.maximize:hover {
+    box-shadow: 0 0 10px #28c840;
+}
+
+.title-bar-btn.close {
+    background: #ff5f57;
+}
+
+.title-bar-btn.close:hover {
+    box-shadow: 0 0 10px #ff5f57;
+}
+
+/* Main Content */
+.main-content {
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+}
+
+.content-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-lg);
+    height: 100%;
+    padding: var(--space-lg);
+    overflow: hidden;
+}
+
+/* Sections */
+.input-section,
+.output-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+    padding: var(--space-xl);
+    overflow-y: auto;
+    height: 100%;
+}
+
+/* Classification Result */
+.classification-result {
+    padding: var(--space-lg);
+    background: linear-gradient(135deg, rgba(0, 245, 255, 0.1), rgba(184, 41, 255, 0.1));
+}
+
+.classification-result h4 {
+    font-family: var(--font-display);
+    font-size: 0.9rem;
+    color: var(--accent-cyan);
+    margin: 0 0 var(--space-sm) 0;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.classification-details {
+    display: flex;
+    gap: var(--space-lg);
+    flex-wrap: wrap;
+}
+
+.classification-details .detail {
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+.classification-details .detail strong {
+    color: var(--text-primary);
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+    .content-wrapper {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto 1fr;
+    }
+
+    .input-section {
+        max-height: 50vh;
+    }
+}
+
+/* Scrollbar styling for content areas */
+.input-section::-webkit-scrollbar,
+.output-section::-webkit-scrollbar {
+    width: 6px;
+}
+
+.input-section::-webkit-scrollbar-track,
+.output-section::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.input-section::-webkit-scrollbar-thumb,
+.output-section::-webkit-scrollbar-thumb {
+    background: var(--glass-border);
+    border-radius: 3px;
+}
+
+.input-section::-webkit-scrollbar-thumb:hover,
+.output-section::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-purple);
+}

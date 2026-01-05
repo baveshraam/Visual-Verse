@@ -95,8 +95,8 @@ class StorySegmenter:
         if NLTK_AVAILABLE:
             try:
                 return sent_tokenize(text)
-            except:
-                pass
+            except Exception:
+                pass  # Fall through to regex-based splitting
         
         # Fallback regex-based splitting
         sentences = re.split(r'(?<=[.!?])\s+', text)

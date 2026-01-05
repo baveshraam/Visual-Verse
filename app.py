@@ -576,7 +576,7 @@ def main():
                     st.success(f"✅ GPU: {gpu_name}")
                 else:
                     st.warning("⚠️ No GPU detected - will use CPU (slower)")
-            except:
+            except Exception:
                 st.warning("⚠️ PyTorch not loaded yet")
         
         st.divider()

@@ -1,0 +1,326 @@
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(10, 10, 15, 0.95);
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: var(--z-modal);
+}
+
+.loading-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+}
+
+.loading-content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 200px;
+    height: 200px;
+}
+
+/* Orbs */
+.orb-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(20px);
+}
+
+.orb-1 {
+    width: 100px;
+    height: 100px;
+    background: var(--accent-cyan);
+    top: 20%;
+    left: 10%;
+}
+
+.orb-2 {
+    width: 80px;
+    height: 80px;
+    background: var(--accent-purple);
+    top: 30%;
+    right: 15%;
+}
+
+.orb-3 {
+    width: 60px;
+    height: 60px;
+    background: var(--accent-pink);
+    bottom: 25%;
+    left: 30%;
+}
+
+/* Spinner Ring */
+.spinner-ring {
+    width: 80px;
+    height: 80px;
+    border: 3px solid transparent;
+    border-top-color: var(--accent-cyan);
+    border-right-color: var(--accent-purple);
+    border-radius: 50%;
+    position: relative;
+    z-index: 2;
+}
+
+.spinner-ring::before {
+    content: '';
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    right: 5px;
+    bottom: 5px;
+    border: 2px solid transparent;
+    border-top-color: var(--accent-pink);
+    border-left-color: var(--accent-cyan);
+    border-radius: 50%;
+    animation: spin-reverse 2s linear infinite;
+}
+
+@keyframes spin-reverse {
+    to {
+        transform: rotate(-360deg);
+    }
+}
+
+/* Text */
+.loading-text {
+    position: absolute;
+    bottom: -40px;
+    font-family: var(--font-display);
+    font-size: 14px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+/* Particles */
+.particles {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    pointer-events: none;
+}
+
+.particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: var(--accent-cyan);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--accent-cyan);
+}
+
+.particle:nth-child(odd) {
+    background: var(--accent-purple);
+    box-shadow: 0 0 10px var(--accent-purple);
+}
+
+.particle:nth-child(3n) {
+    background: var(--accent-pink);
+    box-shadow: 0 0 10px var(--accent-pink);
+}
+
+/* Log Panel */
+.log-panel {
+    width: min(500px, 90vw);
+    background: rgba(20, 20, 30, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.log-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    background: rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.log-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-display);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-primary);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.log-icon {
+    font-size: 16px;
+}
+
+.log-toggle {
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-size: 12px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.log-toggle:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-primary);
+}
+
+.log-container {
+    max-height: 200px;
+    overflow-y: auto;
+    padding: 8px 0;
+}
+
+.log-container::-webkit-scrollbar {
+    width: 6px;
+}
+
+.log-container::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.log-container::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 3px;
+}
+
+.log-entry {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 6px 16px;
+    font-family: var(--font-mono, 'JetBrains Mono', monospace);
+    font-size: 12px;
+    line-height: 1.5;
+    border-left: 3px solid transparent;
+    transition: background 0.2s ease;
+}
+
+.log-entry:hover {
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.log-time {
+    color: var(--text-muted, #666);
+    flex-shrink: 0;
+    font-size: 11px;
+}
+
+.log-message {
+    color: var(--text-secondary);
+}
+
+/* Log entry types */
+.log-info {
+    border-left-color: var(--accent-cyan);
+}
+
+.log-info .log-message {
+    color: rgba(100, 200, 255, 0.9);
+}
+
+.log-warning {
+    border-left-color: var(--accent-orange, #f5a623);
+    background: rgba(245, 166, 35, 0.05);
+}
+
+.log-warning .log-message {
+    color: rgba(255, 190, 70, 0.95);
+}
+
+.log-success {
+    border-left-color: var(--accent-green, #4caf50);
+}
+
+.log-success .log-message {
+    color: rgba(100, 220, 100, 0.9);
+}
+
+.log-error {
+    border-left-color: var(--accent-red, #f44336);
+    background: rgba(244, 67, 54, 0.05);
+}
+
+.log-error .log-message {
+    color: rgba(255, 100, 100, 0.95);
+}
+
+/* Typing indicator */
+.log-typing {
+    border-left-color: var(--accent-purple);
+}
+
+.typing-dots {
+    display: inline-flex;
+    gap: 2px;
+}
+
+.typing-dots span {
+    animation: typing-bounce 1.4s infinite ease-in-out;
+    color: var(--accent-purple);
+    font-weight: bold;
+}
+
+.typing-dots span:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.typing-dots span:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.typing-dots span:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes typing-bounce {
+
+    0%,
+    60%,
+    100% {
+        opacity: 0.3;
+        transform: translateY(0);
+    }
+
+    30% {
+        opacity: 1;
+        transform: translateY(-3px);
+    }
+}
+
+/* Log footer */
+.log-footer {
+    padding: 10px 16px;
+    background: rgba(255, 255, 255, 0.02);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.log-hint {
+    font-size: 11px;
+    color: var(--text-muted, #666);
+    font-style: italic;
+}

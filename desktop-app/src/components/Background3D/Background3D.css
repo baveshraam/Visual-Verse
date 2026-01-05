@@ -1,0 +1,13 @@
+.background-3d {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: var(--z-background, -1);
+    pointer-events: none;
+}
+
+.background-3d canvas {
+    display: block;
+}

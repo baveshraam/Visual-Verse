@@ -1,0 +1,74 @@
+[
+    {
+        "text": "Once upon a time, in a small village nestled between two mountains, there lived a young girl named Maya. She had always dreamed of exploring the world beyond the peaks. One sunny morning, Maya discovered a hidden path behind the old oak tree. \"This must lead somewhere magical!\" she exclaimed with excitement. She followed the path deeper into the woods, where the trees grew taller and sunlight danced through the leaves.",
+        "label": "narrative",
+        "source_lang": "en",
+        "is_translated": false
+    },
+    {
+        "text": "The old fisherman sat by the shore, watching the waves crash against the rocks. He remembered the days when his father would take him out on the boat before dawn. \"Those were simpler times,\" he whispered to the wind. Suddenly, a young boy appeared beside him, asking about the sea. The fisherman smiled and began to tell stories of legendary catches.",
+        "label": "narrative",
+        "source_lang": "en",
+        "is_translated": false
+    },
+    {
+        "text": "In a small village in Tamil Nadu, there lived a girl named Maya who dreamed of exploring the world beyond the mountains. One morning, she discovered a hidden path behind the old banyan tree. The path led through a forest of palm trees, past ancient temples with towering gopurams. She met a wise old woman who gave her three golden bells that would guide her way.",
+        "label": "narrative",
+        "source_lang": "ta",
+        "is_translated": true
+    },
+    {
+        "text": "A young prince named Arjun lived in a grand palace in Kerala. Despite his wealth, he felt lonely and yearned for adventure. One day, a traveling storyteller arrived at the palace gates. The storyteller spoke of a magical lotus flower that bloomed only once in a hundred years. Arjun decided to embark on a quest to find this flower.",
+        "label": "narrative",
+        "source_lang": "ml",
+        "is_translated": true
+    },
+    {
+        "text": "Machine learning is a subset of artificial intelligence that enables computers to learn from data. It consists of three main types: supervised learning, unsupervised learning, and reinforcement learning. Supervised learning uses labeled data to train models, while unsupervised learning discovers patterns in unlabeled data. Reinforcement learning uses reward signals to optimize decision-making.",
+        "label": "informational",
+        "source_lang": "en",
+        "is_translated": false
+    },
+    {
+        "text": "Photosynthesis is the process by which plants convert sunlight into chemical energy. The reaction occurs primarily in chloroplasts, which contain the pigment chlorophyll. During the light-dependent reactions, water molecules are split to release oxygen. The Calvin cycle then uses ATP and NADPH to fix carbon dioxide into glucose.",
+        "label": "informational",
+        "source_lang": "en",
+        "is_translated": false
+    },
+    {
+        "text": "The human brain contains approximately 86 billion neurons. These neurons communicate through electrical and chemical signals called synapses. The prefrontal cortex is responsible for executive functions such as planning and decision-making. Memory formation involves the hippocampus and various regions of the cerebral cortex.",
+        "label": "informational",
+        "source_lang": "en",
+        "is_translated": false
+    },
+    {
+        "text": "Climate change refers to long-term shifts in global temperatures and weather patterns. Human activities, particularly burning fossil fuels, have been the main driver since the industrial revolution. Rising temperatures lead to melting ice caps, sea level rise, and more extreme weather events. Reducing carbon emissions is essential for mitigating these effects.",
+        "label": "informational",
+        "source_lang": "en",
+        "is_translated": false
+    },
+    {
+        "text": "Artificial intelligence encompasses various technologies including natural language processing and computer vision. Deep learning uses neural networks with multiple layers to model complex patterns. Transfer learning allows models trained on one task to be applied to related tasks. These techniques have revolutionized fields from healthcare to autonomous vehicles.",
+        "label": "informational",
+        "source_lang": "ta",
+        "is_translated": true
+    },
+    {
+        "text": "The water cycle, also known as the hydrological cycle, describes the continuous movement of water on Earth. Water evaporates from oceans and lakes, forming clouds through condensation. Precipitation returns water to the surface as rain or snow. Runoff and groundwater flow complete the cycle by returning water to the oceans.",
+        "label": "informational",
+        "source_lang": "ml",
+        "is_translated": true
+    },
+    {
+        "text": "Deep in the enchanted forest, a clever fox named Ramu outsmarted a cunning wolf. Every day, the wolf would chase the smaller animals, but Ramu had a plan. He told the wolf about a magical pond that granted wishes. When the wolf reached the pond and demanded riches, it was only his reflection that answered back. The other animals laughed and the wolf fled in embarrassment.",
+        "label": "narrative",
+        "source_lang": "ta",
+        "is_translated": true
+    },
+    {
+        "text": "The grandmother sat by the oil lamp, her grandchildren gathered around. She began to tell the story of the brave warrior Veera who saved their village from a demon. Veera fought for seven days and nights without rest. In the end, his courage and wisdom defeated the darkness. The children listened with wide eyes as the lamp flickered.",
+        "label": "narrative",
+        "source_lang": "ta",
+        "is_translated": true
+    }
+]

@@ -4,10 +4,14 @@ Generates comic panel images using Stable Diffusion locally on GPU.
 """
 import base64
 import time
+import logging
 from dataclasses import dataclass
 from typing import List, Optional, Dict, Any
 from pathlib import Path
 import io
+
+# Configure logging
+logger = logging.getLogger(__name__)
 
 try:
     import torch
@@ -55,6 +59,7 @@ def get_pipeline(model_name: str = "dreamshaper"):
         "dreamshaper": "Lykon/dreamshaper-8",  # Best for artistic comic style
         "cartoon": "stablediffusionapi/anything-v5",  # Anime/cartoon style
         "sd15": "runwayml/stable-diffusion-v1-5",  # Classic reliable
+        "sdxl": "stabilityai/sdxl-turbo",  # SDXL Turbo for faster generation
     }
     
     model_id = MODELS.get(model_name, MODELS["dreamshaper"])
@@ -88,13 +93,13 @@ def get_pipeline(model_name: str = "dreamshaper"):
             pipe.enable_attention_slicing()
             try:
                 pipe.enable_vae_slicing()
-            except:
-                pass
+            except Exception as e:
+                logger.debug(f"VAE slicing not available: {e}")
             try:
                 pipe.enable_xformers_memory_efficient_attention()
                 print("xformers enabled")
-            except:
-                pass
+            except Exception as e:
+                logger.debug(f"xformers not available: {e}")
         
         print(f"✓ Model loaded successfully on {device}!")
         
@@ -150,7 +155,7 @@ class ImageGenerator:
     
     def __init__(
         self,
-        model_name: str = "sdxl",
+        model_name: str = "dreamshaper",
         use_placeholder: bool = False,
         **kwargs  # Accept extra args for compatibility
     ):
