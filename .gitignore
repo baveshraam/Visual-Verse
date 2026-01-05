@@ -64,3 +64,15 @@ htmlcov/
 # Logs
 *.log
 logs/
+
+# Node modules
+node_modules/
+desktop-app/node_modules/
+
+# Build outputs
+desktop-app/dist/
+desktop-app/out/
+
+# Lock files (optional - uncomment if you want to ignore)
+# package-lock.json
+# yarn.lock
