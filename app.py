@@ -14,6 +14,13 @@ sys.path.insert(0, str(Path(__file__).parent))
 from core.classifier import TextClassifier, TextType
 from core.router import PipelineRouter
 
+# Try to load trained DistilBERT classifier, fallback to rule-based
+try:
+    from nlp_models.classifier.model import DomainClassifier
+    _ml_classifier_available = True
+except ImportError:
+    _ml_classifier_available = False
+
 from pipelines.comic.segmenter import StorySegmenter
 from pipelines.comic.extractor import SceneExtractor
 from pipelines.comic.prompt_builder import PromptBuilder
@@ -522,6 +529,19 @@ st.markdown("""
 # Initialize session state
 if 'classifier' not in st.session_state:
     st.session_state.classifier = TextClassifier(use_semantic=False)
+if 'ml_classifier' not in st.session_state:
+    st.session_state.ml_classifier = None
+    st.session_state.ml_classifier_loaded = False
+    st.session_state.ml_classifier_error = None
+    
+    if _ml_classifier_available:
+        try:
+            ml_clf = DomainClassifier()
+            ml_clf.load('models/nlp_models/classifier/checkpoint/final')
+            st.session_state.ml_classifier = ml_clf
+            st.session_state.ml_classifier_loaded = True
+        except Exception as e:
+            st.session_state.ml_classifier_error = str(e)
 if 'router' not in st.session_state:
     st.session_state.router = PipelineRouter(st.session_state.classifier)
 if 'last_result' not in st.session_state:
@@ -540,9 +560,18 @@ def main():
         
         mode = st.radio(
             "Visualization Mode",
-            ["Comic", "Mind-Map"],
-            help="Choose how to visualize your text"
+            ["Auto (AI-powered)", "Comic", "Mind-Map"],
+            help="Auto: Uses trained AI classifier | Comic/Mind-Map: Manual override"
         )
+        
+        # Show classifier status for Auto mode
+        if mode == "Auto (AI-powered)":
+            if st.session_state.ml_classifier_loaded:
+                st.success("✓ DistilBERT classifier ready")
+            elif st.session_state.ml_classifier_error:
+                st.warning(f"⚠ Using rule-based: {st.session_state.ml_classifier_error[:50]}...")
+            else:
+                st.info("Using rule-based classifier")
         
         st.divider()
         
@@ -638,16 +667,35 @@ Therefore, machine learning has become essential for modern AI systems, enabling
 def process_text(text, mode, comic_style, max_panels, use_placeholder, max_keywords, theme):
     """Process text and generate visualization."""
     with st.spinner("Analyzing text..."):
-        # Classify text (still classify for display purposes)
-        result = st.session_state.classifier.classify(text)
+        # Classify text using appropriate classifier
+        ml_result = None
+        rule_result = st.session_state.classifier.classify(text)
         
-        # Determine pipeline based on user selection
-        if mode == "Comic":
+        # Try ML classifier if available
+        if st.session_state.ml_classifier_loaded and st.session_state.ml_classifier:
+            try:
+                ml_result = st.session_state.ml_classifier.predict_single(text)
+            except Exception as e:
+                st.warning(f"ML classifier error: {str(e)[:50]}")
+        
+        # Determine pipeline based on mode selection
+        if mode == "Auto (AI-powered)":
+            # Use the best available classifier
+            if ml_result:
+                # ML classifier detected label
+                detected_label = ml_result['label']
+                pipeline = "comic" if detected_label == "narrative" else "mindmap"
+                st.session_state.ml_classification = ml_result
+            else:
+                # Fallback to rule-based
+                detected_type = rule_result.text_type
+                pipeline = "comic" if detected_type == TextType.NARRATIVE else "mindmap"
+        elif mode == "Comic":
             pipeline = "comic"
         else:  # Mind-Map
             pipeline = "mindmap"
         
-        st.session_state.classification = result
+        st.session_state.classification = rule_result
         st.session_state.pipeline = pipeline
     
     # Generate visualization
@@ -758,17 +806,33 @@ def display_results():
     # Display classification
     if 'classification' in st.session_state:
         result = st.session_state.classification
+        ml_result = st.session_state.get('ml_classification')
         
-        box_class = "narrative-box" if result.text_type == TextType.NARRATIVE else "informational-box"
-        icon = "📖" if result.text_type == TextType.NARRATIVE else "📊"
+        # Prefer ML result if available
+        if ml_result:
+            label = ml_result['label'].upper()
+            confidence = ml_result['confidence']
+            narrative_score = ml_result['narrative_score']
+            informational_score = ml_result['informational_score']
+            box_class = "narrative-box" if ml_result['label'] == "narrative" else "informational-box"
+            icon = "📖" if ml_result['label'] == "narrative" else "📊"
+            classifier_badge = "🤖 DistilBERT"
+        else:
+            label = result.text_type.value.upper()
+            confidence = result.confidence
+            narrative_score = result.narrative_score
+            informational_score = result.informational_score
+            box_class = "narrative-box" if result.text_type == TextType.NARRATIVE else "informational-box"
+            icon = "📖" if result.text_type == TextType.NARRATIVE else "📊"
+            classifier_badge = "📏 Rule-based"
         
         st.markdown(f"""
         <div class="classification-box {box_class}">
             <h4>{icon} Text Classification</h4>
-            <p><strong>Type:</strong> {result.text_type.value.upper()}</p>
-            <p><strong>Confidence:</strong> {result.confidence:.1%}</p>
-            <p><strong>Narrative Score:</strong> {result.narrative_score:.2f} | 
-               <strong>Informational Score:</strong> {result.informational_score:.2f}</p>
+            <p><strong>Type:</strong> {label} ({confidence:.1%} confidence)</p>
+            <p><strong>Classifier:</strong> {classifier_badge}</p>
+            <p><strong>Narrative Score:</strong> {narrative_score:.2f} | 
+               <strong>Informational Score:</strong> {informational_score:.2f}</p>
         </div>
         """, unsafe_allow_html=True)
     
